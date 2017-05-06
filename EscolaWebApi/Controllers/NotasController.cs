@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace EscolaWebApi.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/v1/notas")]
     public class NotasController : ApiController
     {
@@ -25,9 +26,14 @@ namespace EscolaWebApi.Controllers
         new Aluno { Id = 3, Nome = "Lucas" },
     };
 
-
+        /// <summary>
+        /// Realiza o envio de notas
+        /// </summary>
+        /// <param name="nota">entidade nota</param>
+        /// <returns></returns>
         [HttpPost]
         [Route("")]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult EnviarNotas(Nota nota)
         {
             if (!ModelState.IsValid)
